@@ -1,0 +1,53 @@
+import  tkinter as tk
+from tkinter import *
+from tkinter import messagebox
+import serial
+import time
+
+root = Tk()
+ser = serial.Serial('COM8', 9600)
+state= True
+
+
+def myclick():
+    myLabel = Label(root, text="Look! I click a button!!!").pack()
+def  mesage():
+    messagebox.askyesno('Hola','23')
+    mybutton.config(text="ON",bg='green')
+
+def something():
+    global state
+    if state:
+        mybutton2.config(text="ON", bg='green')
+        state=False
+        time.sleep(0.1)
+        ser.write(b'H')
+
+
+    else:
+        mybutton2.config(text="OFF", bg="red")
+        time.sleep(0.1)
+        ser.write(b'L')
+        state=True
+
+
+
+
+
+mylabel= Label(root,text="               ")
+mylabel2= Label(root,text="               ")
+mylabel3= Label(root,text="               ")
+
+mybutton= Button (root, text="OFF", padx=50, pady=50, command=mesage, bg='red')
+mybutton2= Button (root, text="Click Me", padx=50, pady=50, command=something, bg='red')
+mybutton1= Button (root, text="Click Me", padx=50, pady=50, command=myclick)
+
+
+mylabel.grid(row=1, column=2)
+mylabel2.grid(row=1, column=0)
+mylabel3.grid(row=0, column=0)
+mybutton.grid(row=1,column=1)
+mybutton1.grid(row=2,column=1)
+mybutton2.grid(row=3,column=1)
+
+root.mainloop()
